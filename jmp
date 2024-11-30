@@ -1,0 +1,98 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Customer {
+
+    private int id;
+    private double balance;
+    private String firstName;
+    private String lastName;
+
+    // Default constructor
+    public Customer() {}
+
+    // Parameterized constructor
+    public Customer(int id, double balance, String firstName, String lastName) {
+        this.id = id;
+        this.balance = balance;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    // Getters and Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    // Override toString for display
+    @Override
+    public String toString() {
+        return "Customer [ID=" + id + ", Name=" + firstName + " " + lastName + ", Balance=" + balance + "]";
+    }
+
+    // Main application class
+    public static void main(String[] args) {
+        // List of customers
+        List<Customer> customers = new ArrayList<>();
+
+        // Adding customers with full name
+        customers.add(new Customer(3, 5000.0, "Alice", "Smith"));
+        customers.add(new Customer(2, 2000.0, "Bob", "Jones"));
+        customers.add(new Customer(1, 3000.0, "Alice", "Brown"));
+        customers.add(new Customer(4, 1500.0, "Charlie", "Adams"));
+
+        // Display customers before sorting
+        System.out.println("Before Sorting:");
+        customers.forEach(System.out::println);
+
+        // Sorting customers based on multiple criteria
+        customers.sort((c1, c2) -> {
+            // Compare by First Name
+            int firstNameComparison = c1.getFirstName().compareToIgnoreCase(c2.getFirstName());
+            if (firstNameComparison != 0) return firstNameComparison;
+
+            // Compare by Last Name
+            int lastNameComparison = c1.getLastName().compareToIgnoreCase(c2.getLastName());
+            if (lastNameComparison != 0) return lastNameComparison;
+
+            // Compare by ID
+            int idComparison = Integer.compare(c1.getId(), c2.getId());
+            if (idComparison != 0) return idComparison;
+
+            // Compare by Balance
+            return Double.compare(c1.getBalance(), c2.getBalance());
+        });
+
+        // Display customers after sorting
+        System.out.println("\nAfter Sorting:");
+        customers.forEach(System.out::println);
+    }
+}
